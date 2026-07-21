@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { formatFastingDate } from "../utils/fastingHelpers";
 import { PanchamiDay } from "../types";
-import { Bell, Sparkles, ShieldCheck, Compass, Check, AlertCircle } from "lucide-react";
+import { Bell, ShieldCheck, Compass, Check, AlertCircle } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 interface AutomatedReminderHubProps {
@@ -12,7 +12,6 @@ interface AutomatedReminderHubProps {
 }
 
 export default function AutomatedReminderHub({
-  activeDate,
   paksha,
   tamilMonth,
   panchamiDays,

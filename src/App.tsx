@@ -3,25 +3,7 @@ import { PanchamiDay, FastingLog, FastingStreak, NotificationSettings } from "./
 import { formatFastingDate, calculateStreak } from "./utils/fastingHelpers";
 import PanchamiCalendar from "./components/PanchamiCalendar";
 import AutomatedReminderHub from "./components/AutomatedReminderHub";
-import { 
-  Flame, 
-  Calendar, 
-  Bell, 
-  Share2, 
-  CheckCircle2, 
-  RefreshCw, 
-  BookOpen, 
-  Utensils, 
-  Sparkles, 
-  Clock, 
-  Heart,
-  ChevronRight,
-  Info,
-  ExternalLink,
-  ShieldCheck,
-  MapPin,
-  Compass
-} from "lucide-react";
+import {Flame, CheckCircle2, RefreshCw, Utensils, Sparkles, Info, ShieldCheck, MapPin, Compass} from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 const DAILY_MANTRAS = [
@@ -214,7 +196,7 @@ export default function App() {
     }
   };
 
-  // Sync calendar live from Web Panchangam using server-side Gemini API
+  // Sync calendar live using local astronomical computation (no external API)
   const handleLiveSync = async () => {
     setSyncing(true);
     setError("");
@@ -233,7 +215,7 @@ export default function App() {
       }
     } catch (err) {
       console.error("Live sync failed", err);
-      setError("An error occurred while connecting to Gemini live server.");
+      setError("An error occurred while recomputing the calendar.");
     } finally {
       setSyncing(false);
     }
@@ -418,7 +400,7 @@ export default function App() {
     }
   };
 
-  // Find if today is an unlogged Panchami fasting day (Duolingo Style prompt)
+  // Find if today is an unlogged Panchami fasting day
   const getTodayUnloggedPanchami = () => {
     const todayStr = currentTime.toISOString().split("T")[0];
     const todayPanchami = panchamiDays.find(d => d.date === todayStr);
@@ -573,7 +555,7 @@ export default function App() {
           </motion.div>
         )}
 
-        {/* Duolingo Streak Guardian Verification Prompt */}
+        {/* Streak Guardian Verification Prompt */}
         <AnimatePresence>
           {pendingVerify && (
             <motion.div
@@ -581,7 +563,7 @@ export default function App() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, y: -20 }}
               className="mb-8 bg-[#4A3728] border-2 border-[#C05621] rounded-[32px] p-6 md:p-8 text-white relative overflow-hidden shadow-xl"
-              id="duolingo-verify-card"
+              id="verify-card"
             >
               <div className="absolute top-0 right-0 p-6 opacity-10 pointer-events-none">
                 <Sparkles className="w-36 h-36 text-[#C05621]" />
