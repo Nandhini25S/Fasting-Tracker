@@ -2,5 +2,7 @@
   "name": "Tamil Panchami Fasting Tracker",
   "description": "A dedicated assistant to track Tamil Varahi Panchami fasting tithis, schedule automated alarms, log strict vegetarian meals, and maintain your sacred vow to Goddess Varahi.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

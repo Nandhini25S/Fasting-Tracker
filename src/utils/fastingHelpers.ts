@@ -4,7 +4,7 @@ import { FastingLog, FastingStreak, PanchamiDay } from "../types";
 export function formatFastingDate(dateStr: string): string {
   const date = new Date(dateStr);
   if (isNaN(date.getTime())) return dateStr;
-  
+
   return date.toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
@@ -49,7 +49,7 @@ export function calculateStreak(logs: FastingLog[]): FastingStreak {
   // "Consecutive Panchami fast opportunities that were successfully kept."
   // So if they kept every single Panchami fast without skipping, each one counts as 1 step in the streak.
   // If there is any skipped log between two completed logs, the current streak resets.
-  
+
   // Let's sort logs chronologically
   const sortedLogs = [...logs].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
@@ -67,7 +67,7 @@ export function calculateStreak(logs: FastingLog[]): FastingStreak {
   // Current streak represents continuous completed fasts starting from the most recent one backwards
   let currentCount = 0;
   const sortedLogsDesc = [...logs].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  
+
   for (const log of sortedLogsDesc) {
     if (log.status === "completed" && log.vegOnly) {
       currentCount++;
@@ -131,13 +131,13 @@ export function getTithiRange(panchami: PanchamiDay): string {
   if (panchami.tithiStart) {
     return `${panchami.tithiStart} to ${panchami.tithiEnd}`;
   }
-  
+
   // Estimate traditional start based on the date
   const seed = panchami.date.split("-").reduce((acc, char) => acc + char.charCodeAt(0), 0);
   const hour = 4 + (seed % 3); // 4, 5, or 6
   const min = (seed * 17) % 60;
   const formattedMin = String(min).padStart(2, "0");
   const estimatedStart = `${hour}:${formattedMin} PM (Day Before)`;
-  
+
   return `${estimatedStart} to ${panchami.tithiEnd}`;
 }

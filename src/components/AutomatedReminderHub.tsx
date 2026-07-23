@@ -163,10 +163,10 @@ export default function AutomatedReminderHub({
             <div className="mt-4 flex items-center gap-2" id="device-alarm-status">
               <span className="text-[10px] uppercase font-mono font-bold text-[#8C7B65]">Status:</span>
               <span className={`text-[10px] font-bold px-2 py-0.5 rounded font-mono ${pushStatus === "subscribed"
-                  ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-                  : pushStatus === "error"
-                    ? "bg-rose-50 text-rose-800 border border-rose-200"
-                    : "bg-amber-50 text-amber-800 border border-amber-200"
+                ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                : pushStatus === "error"
+                  ? "bg-rose-50 text-rose-800 border border-rose-200"
+                  : "bg-amber-50 text-amber-800 border border-amber-200"
                 }`}>
                 {pushStatus === "subscribed" ? "Subscribed" : pushStatus === "error" ? "Error" : pushStatus === "subscribing" ? "Subscribing..." : "Not Subscribed"}
               </span>

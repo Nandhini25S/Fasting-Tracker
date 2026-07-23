@@ -121,9 +121,8 @@ export default function PanchamiCalendar({
         {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day, i) => (
           <div
             key={i}
-            className={`text-xs font-bold py-1.5 ${
-              i === 0 || i === 6 ? "text-[#C05621]" : "text-[#8C7B65]"
-            }`}
+            className={`text-xs font-bold py-1.5 ${i === 0 || i === 6 ? "text-[#C05621]" : "text-[#8C7B65]"
+              }`}
             id={`weekday-${day}`}
           >
             {day}
@@ -188,11 +187,10 @@ export default function PanchamiCalendar({
             >
               <span>{day}</span>
               {panchami && !isSelected && (
-                <span className={`text-[7px] mt-0.5 px-1 py-0.1 rounded font-mono ${
-                  panchami.paksha === "Shukla" 
-                    ? "bg-[#FAF7F2] text-[#C05621] font-bold" 
-                    : "bg-white text-[#8C7B65] font-bold"
-                }`}>
+                <span className={`text-[7px] mt-0.5 px-1 py-0.1 rounded font-mono ${panchami.paksha === "Shukla"
+                  ? "bg-[#FAF7F2] text-[#C05621] font-bold"
+                  : "bg-white text-[#8C7B65] font-bold"
+                  }`}>
                   Varahi
                 </span>
               )}
@@ -213,11 +211,10 @@ export default function PanchamiCalendar({
           >
             <div className="flex items-start justify-between">
               <div>
-                <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
-                  selectedDayPanchami.paksha === "Shukla"
-                    ? "bg-[#F3EFE9] text-[#C05621] border border-[#C05621]/20"
-                    : "bg-[#F3EFE9] text-[#4A3728] border border-[#8C7B65]/20"
-                }`}>
+                <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${selectedDayPanchami.paksha === "Shukla"
+                  ? "bg-[#F3EFE9] text-[#C05621] border border-[#C05621]/20"
+                  : "bg-[#F3EFE9] text-[#4A3728] border border-[#8C7B65]/20"
+                  }`}>
                   <Sparkles className="w-3 h-3" />
                   Varahi {selectedDayPanchami.paksha} Panchami
                 </span>
@@ -232,7 +229,7 @@ export default function PanchamiCalendar({
                 </p>
                 {selectedDayPanchami.festivals && (
                   <p className="text-xs text-[#C05621] mt-2.5 bg-white/90 border border-dashed border-[#C05621]/30 px-3 py-1 rounded-lg inline-block font-sans font-medium">
-                     🌟 {selectedDayPanchami.festivals}
+                    🌟 {selectedDayPanchami.festivals}
                   </p>
                 )}
               </div>
@@ -263,9 +260,8 @@ export default function PanchamiCalendar({
                   <div className="flex items-center gap-2 w-full justify-between" id="logged-status-text">
                     <div className="text-xs text-[#4A3728] font-sans font-medium">
                       Status:{" "}
-                      <span className={`font-black ${
-                        selectedDayLog.status === "completed" ? "text-[#2F855A]" : "text-rose-600"
-                      }`}>
+                      <span className={`font-black ${selectedDayLog.status === "completed" ? "text-[#2F855A]" : "text-rose-600"
+                        }`}>
                         {selectedDayLog.status === "completed" ? "Completed Fast 🎉" : "Skipped Fast ⭕"}
                       </span>
                     </div>

@@ -3,7 +3,7 @@ import { PanchamiDay, FastingLog, FastingStreak, NotificationSettings } from "./
 import { formatFastingDate, calculateStreak } from "./utils/fastingHelpers";
 import PanchamiCalendar from "./components/PanchamiCalendar";
 import AutomatedReminderHub from "./components/AutomatedReminderHub";
-import {Flame, CheckCircle2, RefreshCw, Utensils, Sparkles, Info, ShieldCheck, MapPin, Compass} from "lucide-react";
+import { Flame, CheckCircle2, RefreshCw, Utensils, Sparkles, Info, ShieldCheck, MapPin, Compass } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
 const DAILY_MANTRAS = [
@@ -56,7 +56,7 @@ export default function App() {
   // Current selected day's checklists
   const [vegOnly, setVegOnly] = useState(true);
   const [checkedTasks, setCheckedTasks] = useState<string[]>([]);
-  
+
   // Geolocation and hotel finder states
   const [hotelsList, setHotelsList] = useState<any[]>([]);
   const [fetchingLocation, setFetchingLocation] = useState(false);
@@ -234,7 +234,7 @@ export default function App() {
       updatedTasks = [...checkedTasks, taskId];
     }
     setCheckedTasks(updatedTasks);
-    
+
     // Auto-save log
     saveFastingLog(selectedDate, "completed", vegOnly, updatedTasks);
   };
@@ -304,7 +304,7 @@ export default function App() {
         const updated = { ...notifSettings, browserNotificationsEnabled: true };
         setNotifSettings(updated);
         localStorage.setItem("panchami_notification_settings", JSON.stringify(updated));
-        
+
         new Notification("🔔 Tamil Panchami Fasting Tracker", {
           body: "Timely fasting notifications are now active! We will remind you to stay strictly veg.",
           icon: "/favicon.ico"
@@ -320,14 +320,14 @@ export default function App() {
   // Duolingo style fast verification handler
   const handleVerifyFast = (dateStr: string, wasSuccessful: boolean) => {
     const todayStr = currentTime.toISOString().split("T")[0];
-    
+
     saveFastingLog(
       dateStr,
       wasSuccessful ? "completed" : "skipped",
       wasSuccessful,
       wasSuccessful ? ["veg", "water", "prayers", "no-onion"] : []
     );
-    
+
     if (wasSuccessful) {
       setSuccessMsg("Excellent! Vow verified. Your fasting streak lives on! Keep it up! 🥦🔥");
     } else {
@@ -355,7 +355,7 @@ export default function App() {
         try {
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
-          
+
           const response = await fetch("/api/panchami/hotels", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -452,8 +452,8 @@ export default function App() {
   });
   const totalMonthlyCount = monthlyPanchamis.length;
   const completedMonthlyCount = completedMonthlyPanchamis.length;
-  const monthlyPercentage = totalMonthlyCount > 0 
-    ? Math.round((completedMonthlyCount / totalMonthlyCount) * 100) 
+  const monthlyPercentage = totalMonthlyCount > 0
+    ? Math.round((completedMonthlyCount / totalMonthlyCount) * 100)
     : 0;
 
   const currentMonthStr = currentTime.toISOString().split("T")[0].substring(0, 7);
@@ -489,7 +489,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FAF7F2] text-[#2D241E] flex flex-col font-sans transition-all selection:bg-orange-150" id="app-root">
-      
+
       {/* Top Header Navigation - Designed strictly in Bento style */}
       <header className="flex flex-col md:flex-row justify-between items-start md:items-end py-8 px-6 md:px-12 max-w-7xl w-full mx-auto" id="app-header">
         <div className="flex flex-col">
@@ -500,7 +500,7 @@ export default function App() {
             Varahi <span className="text-[#C05621]">Sankalpa Panchami</span>
           </h1>
         </div>
-        
+
         <div className="text-left md:text-right mt-4 md:mt-0 flex flex-col items-start md:items-end gap-1">
           <p className="text-lg font-serif italic text-[#4A3728]">
             {nextPanchami ? `${nextPanchami.tamilMonth} Month` : "Fasting Year"} • Panchangam
@@ -601,7 +601,7 @@ export default function App() {
             </motion.div>
           )}
         </AnimatePresence>
-        
+
         {/* Error/Success Alert banners */}
         <AnimatePresence>
           {(error || successMsg) && (
@@ -633,10 +633,10 @@ export default function App() {
 
         {/* BENTO GRID STRUCTURE */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch" id="bento-grid">
-          
+
           {/* Box 1: PRIMARY TARGET BOX - Active Tithi / Next Panchami (Col span 8) */}
           <div className="md:col-span-8 bg-white rounded-[32px] p-8 md:p-10 border border-[#EBE3D5] shadow-sm relative overflow-hidden flex flex-col justify-between min-h-[340px]" id="countdown-card">
-            
+
             {/* Elegant Background Backdrop element representing the current Panchami's occurrence */}
             <div className="z-0 text-[100px] md:text-[120px] font-serif leading-none font-black text-[#C05621] opacity-5 absolute -top-4 -right-4 select-none pointer-events-none flex flex-col items-end">
               <span>{occurrenceNumber}</span>
@@ -645,12 +645,12 @@ export default function App() {
 
             <div className="z-10">
               <span className="bg-[#F3EFE9] text-[#8C7B65] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest inline-block border border-[#EBE3D5]/40" id="fast-today-tag">
-                {selectedDayPanchami 
+                {selectedDayPanchami
                   ? (isSelectedToday ? "✨ FAST ACTIVE TODAY" : selectedDate < todayStr ? "📜 PAST FASTING DAY" : "📅 UPCOMING FASTING DAY")
                   : "🌙 PREPARATION MODE"
                 }
               </span>
-              
+
               {selectedDayPanchami ? (
                 <div id="fasting-active-layout" className="mt-4">
                   <h2 className="text-4xl md:text-5xl font-serif font-black tracking-tight text-[#4A3728]">
@@ -720,10 +720,10 @@ export default function App() {
               ) : selectedDayPanchami ? (
                 <div className="flex items-center gap-2 text-emerald-800 font-sans font-semibold text-sm" id="active-purity-label">
                   <ShieldCheck className="w-5 h-5 text-emerald-600" />
-                  {isSelectedToday 
-                    ? "Your strict vegetarian fast is active for today." 
-                    : selectedDate < todayStr 
-                      ? "Panchami record preserved." 
+                  {isSelectedToday
+                    ? "Your strict vegetarian fast is active for today."
+                    : selectedDate < todayStr
+                      ? "Panchami record preserved."
                       : "Prepare for upcoming fasting tithi."}
                 </div>
               ) : (
@@ -770,7 +770,7 @@ export default function App() {
                 <span className="text-lg font-bold text-[#C05621] font-mono">{monthlyPercentage}%</span>
               </div>
               <div className="h-3 w-full bg-white rounded-full overflow-hidden border border-[#EBE3D5]/50">
-                <div 
+                <div
                   className="h-full bg-[#C05621] transition-all duration-500 rounded-full"
                   style={{ width: `${monthlyPercentage}%` }}
                 />
@@ -794,19 +794,17 @@ export default function App() {
           </div>
 
           {/* Box 4: DIET MODE / PURE VEG INDICATOR (Col span 6) */}
-          <div 
-            className={`md:col-span-6 rounded-[32px] p-8 text-white flex flex-col justify-between shadow-lg min-h-[260px] transition-all duration-500 ${
-              selectedDayPanchami 
-                ? "bg-[#2F855A] shadow-[0_4px_20px_rgba(47,133,90,0.15)]" 
-                : "bg-[#4a584e]"
-            }`} 
+          <div
+            className={`md:col-span-6 rounded-[32px] p-8 text-white flex flex-col justify-between shadow-lg min-h-[260px] transition-all duration-500 ${selectedDayPanchami
+              ? "bg-[#2F855A] shadow-[0_4px_20px_rgba(47,133,90,0.15)]"
+              : "bg-[#4a584e]"
+              }`}
             id="diet-mode-card"
           >
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-2">
-                <div className={`w-2.5 h-2.5 rounded-full shadow-[0_0_8px_currentColor] animate-pulse ${
-                  selectedDayPanchami ? "bg-[#9AE6B4] text-[#9AE6B4]" : "bg-neutral-400 text-neutral-400"
-                }`}></div>
+                <div className={`w-2.5 h-2.5 rounded-full shadow-[0_0_8px_currentColor] animate-pulse ${selectedDayPanchami ? "bg-[#9AE6B4] text-[#9AE6B4]" : "bg-neutral-400 text-neutral-400"
+                  }`}></div>
                 <span className="text-[10px] uppercase tracking-widest opacity-80 font-bold">
                   {selectedDayPanchami ? "Diet Mode: Strict Satvic Fast" : "Diet Mode: Standard Diet"}
                 </span>
@@ -821,7 +819,7 @@ export default function App() {
                 {selectedDayPanchami ? "Strict Satvic Food Only" : "Standard Diet"}
               </h3>
               <p className="text-xs opacity-80 leading-relaxed">
-                {selectedDayPanchami 
+                {selectedDayPanchami
                   ? "Today is a sacred Varahi Panchami. Maintain 100% pure vegetarian preparation. strictly no meat, fish, eggs, onion, or garlic."
                   : "No fasting tithi is active today. You are free to follow your regular dietary choices. The strict satvik vow is only observed on sacred Panchami days."
                 }
@@ -830,10 +828,9 @@ export default function App() {
           </div>
 
           {/* Box 5: DECORATIVE PHILOSOPHICAL QUOTE (Col span 6 or 12 depending on checklist existence) */}
-          <div 
-            className={`${
-              selectedDayPanchami ? "md:col-span-6" : "md:col-span-12"
-            } bg-[#FDF6EC] border border-[#C05621] border-dashed rounded-[32px] p-8 flex items-center justify-center text-center min-h-[260px] transition-all duration-500`} 
+          <div
+            className={`${selectedDayPanchami ? "md:col-span-6" : "md:col-span-12"
+              } bg-[#FDF6EC] border border-[#C05621] border-dashed rounded-[32px] p-8 flex items-center justify-center text-center min-h-[260px] transition-all duration-500`}
             id="quote-card"
           >
             <div className="flex flex-col items-center">
@@ -851,10 +848,9 @@ export default function App() {
 
           {/* Box 6: ACTIVE DAY CHECKLIST (Only shown on Panchami days) */}
           {selectedDayPanchami && (
-            <div 
-              className={`md:col-span-6 bg-white rounded-[32px] p-8 border border-[#EBE3D5] shadow-sm transition-all duration-300 ${
-                !isSelectedToday ? "opacity-60" : ""
-              }`} 
+            <div
+              className={`md:col-span-6 bg-white rounded-[32px] p-8 border border-[#EBE3D5] shadow-sm transition-all duration-300 ${!isSelectedToday ? "opacity-60" : ""
+                }`}
               id="checklist-card"
             >
               <div className="flex justify-between items-center mb-6" id="checklist-header">
@@ -884,9 +880,8 @@ export default function App() {
                     <button
                       key={task.id}
                       onClick={() => handleToggleTask(task.id)}
-                      className={`w-full flex items-center justify-between p-4 hover:bg-[#FAF7F2]/50 rounded-2xl border border-[#EBE3D5]/50 transition-all text-left group ${
-                        !isSelectedToday ? "cursor-not-allowed" : "cursor-pointer"
-                      }`}
+                      className={`w-full flex items-center justify-between p-4 hover:bg-[#FAF7F2]/50 rounded-2xl border border-[#EBE3D5]/50 transition-all text-left group ${!isSelectedToday ? "cursor-not-allowed" : "cursor-pointer"
+                        }`}
                       id={`task-btn-${task.id}`}
                     >
                       <div>
@@ -895,11 +890,10 @@ export default function App() {
                         </span>
                         <span className="text-[10px] text-[#8C7B65] block mt-0.5">{task.desc}</span>
                       </div>
-                      <div className={`w-6 h-6 rounded-xl border flex items-center justify-center transition-all ${
-                        isCompleted 
-                          ? "bg-[#C05621] border-[#C05621] text-white" 
-                          : "border-[#EBE3D5] group-hover:border-[#C05621]/40"
-                      }`}>
+                      <div className={`w-6 h-6 rounded-xl border flex items-center justify-center transition-all ${isCompleted
+                        ? "bg-[#C05621] border-[#C05621] text-white"
+                        : "border-[#EBE3D5] group-hover:border-[#C05621]/40"
+                        }`}>
                         {isCompleted && <span className="text-xs font-bold">✓</span>}
                       </div>
                     </button>
@@ -1032,7 +1026,7 @@ export default function App() {
       <footer className="bg-white border-t border-[#EBE3D5] mt-16 py-12 px-6 text-center text-[#8C7B65]" id="app-footer">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-xs font-sans font-medium">
-             Sankalpa Panchami Fasting Tracker • Devoted to healthy living & family happiness.
+            Sankalpa Panchami Fasting Tracker • Devoted to healthy living & family happiness.
           </p>
           <div className="flex gap-6 text-xs font-mono" id="footer-links">
             <span className="text-[#C05621] font-bold">Pure Satvik Protocol</span>
@@ -1043,4 +1037,3 @@ export default function App() {
     </div>
   );
 }
-
