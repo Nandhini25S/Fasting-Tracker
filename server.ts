@@ -4,9 +4,15 @@ import fs from "fs";
 import { createServer as createViteServer } from "vite";
 import { computePanchamiDays } from "./src/server/panchamiCalc";
 import { findNearbyVegHotels } from "./src/server/hotels";
+import { createClient } from "@supabase/supabase-js";
+
 
 const app = express();
 const PORT = 3000;
+const supabase = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_KEY!
+);
 
 app.use(express.json());
 
@@ -89,6 +95,25 @@ app.post("/api/panchami/advice", (req, res) => {
   } catch (error: any) {
     console.error("Advice error:", error);
     res.status(500).json({ success: false, error: error.message || "Failed to load fasting advice." });
+  }
+});
+
+app.post("/api/push/subscribe", async (req, res) => {
+  try {
+    const subscription = req.body;
+    const { error } = await supabase.from("push_subscriptions").upsert(
+      {
+        endpoint: subscription.endpoint,
+        p256dh: subscription.keys.p256dh,
+        auth: subscription.keys.auth,
+      },
+      { onConflict: "endpoint" }
+    );
+    if (error) throw error;
+    res.json({ success: true });
+  } catch (err: any) {
+    console.error("Subscribe error:", err);
+    res.status(500).json({ success: false, error: err.message });
   }
 });
 
